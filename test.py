@@ -19,22 +19,17 @@ def main():
                 done = True
             if event.type == pg.MOUSEBUTTONDOWN:
                 # If the user clicked on the input_box rect.
-                if input_box.collidepoint(event.pos):
-                    # Toggle the active variable.
-                    active = not active
-                else:
-                    active = False
+                active = not active if input_box.collidepoint(event.pos) else False
                 # Change the current color of the input box.
                 color = color_active if active else color_inactive
-            if event.type == pg.KEYDOWN:
-                if active:
-                    if event.key == pg.K_RETURN:
-                        print(text)
-                        text = ''
-                    elif event.key == pg.K_BACKSPACE:
-                        text = text[:-1]
-                    else:
-                        text += event.unicode
+            if event.type == pg.KEYDOWN and active:
+                if event.key == pg.K_RETURN:
+                    print(text)
+                    text = ''
+                elif event.key == pg.K_BACKSPACE:
+                    text = text[:-1]
+                else:
+                    text += event.unicode
 
         screen.fill((30, 30, 30))
         # Render the current text.

@@ -17,7 +17,7 @@ color_dark = (100, 100, 100)
 
 displays = pygame.display.set_mode((X, Y))
 pygame.display.set_caption('The Path to login')
-fwint = os.getcwd() + '\\logins\\' + 'font.ttf'
+fwint = f'{os.getcwd()}\\logins\\font.ttf'
 font1 = pygame.font.Font(fwint, 24)
 def mainscree():
     global center
