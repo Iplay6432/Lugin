@@ -44,31 +44,24 @@ def maketextbox(x,y,w,h):
     text = ''
     done = False
     if ev.type == pygame.MOUSEBUTTONDOWN:
-        if input_box.collidepoint(ev.pos):
-            # Toggle the active variable.
-            active = not active
-        else:
-            active = False
+        active = not active if input_box.collidepoint(ev.pos) else False
         # Change the current color of the input box.
         color = color_active if active else color_inactive
-    if ev.type == pygame.KEYDOWN:
-        if active:
-            if ev.key == pygame.K_RETURN:
-                print(text)
-                text = ''
-            elif ev.key == pygame.K_BACKSPACE:
-                text = text[:-1]
-            else:
-                text += ev.unicode
+    if ev.type == pygame.KEYDOWN and active:
+        if ev.key == pygame.K_RETURN:
+            print(text)
+            text = ''
+        elif ev.key == pygame.K_BACKSPACE:
+            text = text[:-1]
+        else:
+            text += ev.unicode
 
     displays.fill((30, 30, 30))
     # Render the current text.
     txt_surface = font1.render(text, True, color)
     # Resize the box if the text is too long.
     width = max(200, txt_surface.get_width() + 10)
-        # Blit the text.
     displays.blit(txt_surface, (x + 5, y + 5))
-        # Blit the input_box rect.
     pygame.draw.rect(displays, color, input_box, 2)
     pygame.display.flip()
     clock.tick(30)
